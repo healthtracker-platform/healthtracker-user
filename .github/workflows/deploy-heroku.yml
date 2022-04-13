@@ -2,7 +2,7 @@ name: CD - Heroku
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -12,5 +12,5 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.6.8 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "betca-tpv-user" #Must be unique in Heroku
-          heroku_email: "j.bernal@upm.es"
+          heroku_app_name: "healthtracker-user" #Must be unique in Heroku
+          heroku_email: "yolanda.sabuco@gmail.com"
