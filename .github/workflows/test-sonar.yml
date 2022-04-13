@@ -28,8 +28,8 @@ jobs:
         if: success() # always() failure() success()
         run: >
           mvn -B verify -DskipTests sonar:sonar
-          -Dsonar.projectKey=es.upm.miw:betca-tpv-user
-          -Dsonar.organization=miw-upm-github
+          -Dsonar.projectKey=healthtracker-platform_healthtracker-user
+          -Dsonar.organization=healthtracker-platform
           -Dsonar.host.url=https://sonarcloud.io
           -Dsonar.login=$SONAR_TOKEN
         env:
