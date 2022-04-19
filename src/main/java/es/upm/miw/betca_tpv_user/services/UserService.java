@@ -32,9 +32,6 @@ public class UserService {
     }
 
     public void createUser(User user, Role roleClaim) {
-        if (!authorizedRoles(roleClaim).contains(user.getRole())) {
-            throw new ForbiddenException("Insufficient role to create this user: " + user);
-        }
         this.assertNoExistByEmail(user.getEmail());
         this.userRepository.save(user);
     }

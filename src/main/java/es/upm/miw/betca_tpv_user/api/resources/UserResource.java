@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('PATIENT')")
 @RestController
 @RequestMapping(UserResource.USERS)
 public class UserResource {
@@ -41,11 +40,11 @@ public class UserResource {
     @PreAuthorize("authenticated")
     @PostMapping(value = TOKEN)
     public Optional< TokenDto > login(@AuthenticationPrincipal User activeUser) {
-
         return userService.login(activeUser.getUsername())
                 .map(TokenDto::new);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @SecurityRequirement(name = "bearerAuth")
     @PostMapping
     public void createUser(@Valid @RequestBody UserDto creationUserDto) {

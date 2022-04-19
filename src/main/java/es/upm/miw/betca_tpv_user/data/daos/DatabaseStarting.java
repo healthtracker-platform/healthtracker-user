@@ -31,9 +31,9 @@ public class DatabaseStarting {
         if (this.userRepository.findByRoleIn(List.of(Role.ADMIN)).isEmpty()) {
             User user = User.builder().email(EMAIL).firstName(SUPER_USER)
                     .familyName(SUPER_USER)
+                    .sex(Sex.MALE)
                     .password(new BCryptPasswordEncoder().encode(PASSWORD))
-                    .role(Role.ADMIN)
-                    .active(true).build();
+                    .role(Role.ADMIN).active(true).build();
             this.userRepository.save(user);
             LogManager.getLogger(this.getClass()).warn("------- Created Admin -----------");
         }
