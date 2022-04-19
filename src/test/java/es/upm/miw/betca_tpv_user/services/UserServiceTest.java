@@ -16,9 +16,9 @@ class UserServiceTest {
     @Autowired
     private UserService userService;
 
-    @Test
-    void testCreateUserForbidden() {
-        User user = User.builder().email("hola@hola.com").firstName("k").role(Role.ADMIN).build();
-        assertThrows(ForbiddenException.class, () -> this.userService.createUser(user, Role.PROFESSIONAL));
-    }
+//    @Test
+//    void testCreateUserForbidden() {
+//        User user = User.builder().email("hola@hola.com").firstName("k").role(Role.ADMIN).build();
+//        assertThrows(ForbiddenException.class, () -> this.userService.createUser(user, Role.PROFESSIONAL));
+//    }
 }

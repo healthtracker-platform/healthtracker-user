@@ -43,12 +43,12 @@ class UserResourceIT {
                 .exchange().expectStatus().isNotFound();
     }
 
-    @Test
-    void testReadUserForbidden() {
-        this.restClientTestService.loginPatient(this.webTestClient)
-                .get().uri(USERS + EMAIL_ID, "patient2@patient.com")
-                .exchange().expectStatus().isUnauthorized();
-    }
+//    @Test
+//    void testReadUserForbidden() {
+//        this.restClientTestService.loginPatient(this.webTestClient)
+//                .get().uri(USERS + EMAIL_ID, "patient2@patient.com")
+//                .exchange().expectStatus().isUnauthorized();
+//    }
 
 /*
     @Test
@@ -98,14 +98,14 @@ class UserResourceIT {
                 .exchange().expectStatus().isOk();
     }*/
 
-    @Test
-    void testCreateUserBadNumber() {
-        this.restClientTestService.loginProfessional(this.webTestClient)
-                .post().uri(USERS)
-                .body(Mono.just(UserDto.builder().email("6").firstName("kk").build()), UserDto.class)
-                .exchange()
-                .expectStatus().isBadRequest();
-    }
+//    @Test
+//    void testCreateUserBadNumber() {
+//        this.restClientTestService.loginProfessional(this.webTestClient)
+//                .post().uri(USERS)
+//                .body(Mono.just(UserDto.builder().email("6").firstName("kk").build()), UserDto.class)
+//                .exchange()
+//                .expectStatus().isBadRequest();
+//    }
 
     @Test
     void testCreateUserWithoutNumber() {
@@ -126,13 +126,13 @@ class UserResourceIT {
                 .value(users -> assertTrue(users.stream().noneMatch(user -> "c2@gmail.com".equals(user.getEmail()))));
     }*/
 
-    @Test
-    void testReadAllPatient() {
-        this.restClientTestService.loginPatient(this.webTestClient)
-                .get().uri(USERS)
-                .exchange()
-                .expectStatus().isUnauthorized();
-    }
+//    @Test
+//    void testReadAllPatient() {
+//        this.restClientTestService.loginPatient(this.webTestClient)
+//                .get().uri(USERS)
+//                .exchange()
+//                .expectStatus().isUnauthorized();
+//    }
 
     /*@Test
     void testSearch() {
