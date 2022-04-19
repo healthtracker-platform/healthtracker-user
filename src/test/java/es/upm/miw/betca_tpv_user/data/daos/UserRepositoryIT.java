@@ -27,20 +27,20 @@ class UserRepositoryIT {
         assertTrue(this.userRepository.findByRoleIn(roles).stream().allMatch(user -> roles.contains(user.getRole())));
     }
 
-    @Test
-    void testFindByMobileAndFirstNameAndFamilyNameAndEmailAndDniNullSafeWithMobile() {
-        assertTrue(this.userRepository.findByMobileAndFirstNameAndFamilyNameAndEmailAndDniContainingNullSafe(
-                "1", null, null, ".com", null, List.of(PROFESSIONAL)).stream()
-                .anyMatch(user -> "666666001".equals(user.getMobile()))
-        );
-    }
-
-    @Test
-    void testFindByMobileAndFirstNameAndFamilyNameAndEmailAndDniNullSafeWithDni() {
-        assertTrue(this.userRepository.findByMobileAndFirstNameAndFamilyNameAndEmailAndDniContainingNullSafe(
-                null, null, null, null, "kk",
-                List.of(ADMIN, PROFESSIONAL)).isEmpty()
-        );
-    }
+//    @Test
+//    void testFindByMobileAndFirstNameAndFamilyNameAndEmailAndDniNullSafeWithMobile() {
+//        assertTrue(this.userRepository.findByMobileAndFirstNameAndFamilyNameAndEmailAndDniContainingNullSafe(
+//                "1", null, null, ".com", null, List.of(PROFESSIONAL)).stream()
+//                .anyMatch(user -> "666666001".equals(user.getMobile()))
+//        );
+//    }
+//
+//    @Test
+//    void testFindByMobileAndFirstNameAndFamilyNameAndEmailAndDniNullSafeWithDni() {
+//        assertTrue(this.userRepository.findByMobileAndFirstNameAndFamilyNameAndEmailAndDniContainingNullSafe(
+//                null, null, null, null, "kk",
+//                List.of(ADMIN, PROFESSIONAL)).isEmpty()
+//        );
+//    }
 
 }

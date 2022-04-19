@@ -35,18 +35,17 @@ public class UserService {
         if (!authorizedRoles(roleClaim).contains(user.getRole())) {
             throw new ForbiddenException("Insufficient role to create this user: " + user);
         }
-        this.assertNoExistByMobile(user.getMobile());
-        user.setRegistrationDate(LocalDateTime.now());
+        this.assertNoExistByEmail(user.getEmail());
         this.userRepository.save(user);
     }
 
-    public Stream< User > readAll(Role roleClaim) {
-        return this.userRepository.findByRoleIn(authorizedRoles(roleClaim)).stream();
-    }
+//    public Stream< User > readAll(Role roleClaim) {
+//        return this.userRepository.findByRoleIn(authorizedRoles(roleClaim)).stream();
+//    }
 
     private List< Role > authorizedRoles(Role roleClaim) {
         if (Role.ADMIN.equals(roleClaim)) {
-            return List.of(Role.ADMIN, Role.PROFESSIONAL, Role.PATIENT);
+            return List.of(Role.ADMIN, Role.PROFESSIONAL);
         } else if (Role.PROFESSIONAL.equals(roleClaim)) {
             return List.of(Role.PROFESSIONAL);
         } else if (Role.PATIENT.equals(roleClaim)) {
@@ -56,21 +55,21 @@ public class UserService {
         }
     }
 
-    private void assertNoExistByMobile(String email) {
+    private void assertNoExistByEmail(String email) {
         if (this.userRepository.findByEmail(email).isPresent()) {
             throw new ConflictException("The email already exists: " + email);
         }
     }
 
-    public Stream< User > findByMobileAndFirstNameAndFamilyNameAndEmailAndDniContainingNullSafe(
-            String mobile, String firstName, String familyName, String email, String dni, Role roleClaim) {
-        return this.userRepository.findByMobileAndFirstNameAndFamilyNameAndEmailAndDniContainingNullSafe(
-                mobile, firstName, familyName, email, dni, this.authorizedRoles(roleClaim)
-        ).stream();
-    }
-
-    public User readByEmailAssured(String email) {
-        return this.userRepository.findByEmail(email)
-                .orElseThrow(() -> new NotFoundException("The email don't exist: " + email));
-    }
+//    public Stream< User > findByMobileAndFirstNameAndFamilyNameAndEmailAndDniContainingNullSafe(
+//            String mobile, String firstName, String familyName, String email, String dni, Role roleClaim) {
+//        return this.userRepository.findByMobileAndFirstNameAndFamilyNameAndEmailAndDniContainingNullSafe(
+//                mobile, firstName, familyName, email, dni, this.authorizedRoles(roleClaim)
+//        ).stream();
+//    }
+//
+//    public User readByEmailAssured(String email) {
+//        return this.userRepository.findByEmail(email)
+//                .orElseThrow(() -> new NotFoundException("The email don't exist: " + email));
+//    }
 }

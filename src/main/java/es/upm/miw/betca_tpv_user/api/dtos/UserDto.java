@@ -2,6 +2,7 @@ package es.upm.miw.betca_tpv_user.api.dtos;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import es.upm.miw.betca_tpv_user.data.model.Role;
+import es.upm.miw.betca_tpv_user.data.model.Sex;
 import es.upm.miw.betca_tpv_user.data.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -31,13 +31,10 @@ public class UserDto {
     @NotBlank
     private String firstName;
     private String familyName;
-    private String mobile;
-    private String collegiateNumber;
-    private String address;
+    private Sex sex;
     private String password;
     private Role role;
     private Boolean active;
-    private LocalDateTime registrationDate;
 
     public UserDto(User user) {
         BeanUtils.copyProperties(user, this);
@@ -45,7 +42,7 @@ public class UserDto {
     }
 
     public static UserDto ofMobileFirstName(User user) {
-        return UserDto.builder().mobile(user.getMobile()).firstName(user.getFirstName()).build();
+        return UserDto.builder().email(user.getEmail()).firstName(user.getFirstName()).familyName(user.getFamilyName()).active(user.getActive()).password(user.getPassword()).role(user.getRole()).sex(user.getSex()).build();
     }
 
     public void doDefault() {

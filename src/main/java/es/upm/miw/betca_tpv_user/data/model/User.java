@@ -21,12 +21,10 @@ public class User {
     @NonNull
     private String firstName;
     private String familyName;
-    private String mobile;
-    private String collegiateNumber;
-    private String address;
+    @Enumerated(EnumType.STRING)
+    private Sex sex;
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
-    private LocalDateTime registrationDate;
     private Boolean active;
 }

@@ -1,6 +1,7 @@
 package es.upm.miw.betca_tpv_user.data.daos;
 
 import es.upm.miw.betca_tpv_user.data.model.Role;
+import es.upm.miw.betca_tpv_user.data.model.Sex;
 import es.upm.miw.betca_tpv_user.data.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,10 @@ public class DatabaseStarting {
         LogManager.getLogger(this.getClass()).warn("------- Finding Admin -----------");
         if (this.userRepository.findByRoleIn(List.of(Role.ADMIN)).isEmpty()) {
             User user = User.builder().email(EMAIL).firstName(SUPER_USER)
+                    .familyName(SUPER_USER)
                     .password(new BCryptPasswordEncoder().encode(PASSWORD))
-                    .role(Role.ADMIN).registrationDate(LocalDateTime.now()).active(true).build();
+                    .role(Role.ADMIN)
+                    .active(true).build();
             this.userRepository.save(user);
             LogManager.getLogger(this.getClass()).warn("------- Created Admin -----------");
         }

@@ -11,20 +11,21 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-@PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('OPERATOR')")
+@PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('PATIENT')")
 @RestController
 @RequestMapping(UserResource.USERS)
 public class UserResource {
     public static final String USERS = "/users";
-
     public static final String TOKEN = "/token";
     public static final String EMAIL_ID = "/{email}";
     public static final String SEARCH = "/search";
@@ -40,6 +41,7 @@ public class UserResource {
     @PreAuthorize("authenticated")
     @PostMapping(value = TOKEN)
     public Optional< TokenDto > login(@AuthenticationPrincipal User activeUser) {
+
         return userService.login(activeUser.getUsername())
                 .map(TokenDto::new);
     }
@@ -50,32 +52,32 @@ public class UserResource {
         this.userService.createUser(creationUserDto.toUser(), this.extractRoleClaims());
     }
 
-    @SecurityRequirement(name = "bearerAuth")
-    @GetMapping(EMAIL_ID)
-    public UserDto readUser(@PathVariable String email) {
-        return new UserDto(this.userService.readByEmailAssured(email));
-    }
-
-    @SecurityRequirement(name = "bearerAuth")
-    @GetMapping
-    public Stream< UserDto > readAll() {
-        return this.userService.readAll(this.extractRoleClaims())
-                .map(UserDto::ofMobileFirstName);
-    }
-
-    @SecurityRequirement(name = "bearerAuth")
-    @GetMapping(value = SEARCH)
-    public Stream< UserDto > findByMobileAndFirstNameAndFamilyNameAndEmailAndDniContainingNullSafe(
-            @RequestParam(required = false) String mobile, @RequestParam(required = false) String firstName,
-            @RequestParam(required = false) String familyName, @RequestParam(required = false) String email,
-            @RequestParam(required = false) String dni) {
-        return this.userService.findByMobileAndFirstNameAndFamilyNameAndEmailAndDniContainingNullSafe(
-                mobile, firstName, familyName, email, dni, this.extractRoleClaims()
-        ).map(UserDto::ofMobileFirstName);
-    }
+//    @SecurityRequirement(name = "bearerAuth")
+//    @GetMapping(EMAIL_ID)
+//    public UserDto readUser(@PathVariable String email) {
+//        return new UserDto(this.userService.readByEmailAssured(email));
+//    }
+//
+//    @SecurityRequirement(name = "bearerAuth")
+//    @GetMapping
+//    public Stream< UserDto > readAll() {
+//        return this.userService.readAll(this.extractRoleClaims())
+//                .map(UserDto::ofMobileFirstName);
+//    }
+//
+//    @SecurityRequirement(name = "bearerAuth")
+//    @GetMapping(value = SEARCH)
+//    public Stream< UserDto > findByMobileAndFirstNameAndFamilyNameAndEmailAndDniContainingNullSafe(
+//            @RequestParam(required = false) String mobile, @RequestParam(required = false) String firstName,
+//            @RequestParam(required = false) String familyName, @RequestParam(required = false) String email,
+//            @RequestParam(required = false) String dni) {
+//        return this.userService.findByMobileAndFirstNameAndFamilyNameAndEmailAndDniContainingNullSafe(
+//                mobile, firstName, familyName, email, dni, this.extractRoleClaims()
+//        ).map(UserDto::ofMobileFirstName);
+//    }
 
     private Role extractRoleClaims() {
-        List< String > roleClaims = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
+        List<String> roleClaims = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority).collect(Collectors.toList());
         return Role.of(roleClaims.get(0));  // it must only be a role
     }
