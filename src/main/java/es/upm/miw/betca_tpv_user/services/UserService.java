@@ -31,7 +31,7 @@ public class UserService {
                 .map(user -> jwtService.createToken(user.getEmail(), user.getFirstName(), user.getRole().name()));
     }
 
-    public void createUser(User user, Role roleClaim) {
+    public void createUser(User user) {
         this.assertNoExistByEmail(user.getEmail());
         this.userRepository.save(user);
     }

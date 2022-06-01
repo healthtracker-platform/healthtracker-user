@@ -48,7 +48,7 @@ public class UserResource {
     @SecurityRequirement(name = "bearerAuth")
     @PostMapping
     public void createUser(@Valid @RequestBody UserDto creationUserDto) {
-        this.userService.createUser(creationUserDto.toUser(), this.extractRoleClaims());
+        this.userService.createUser(creationUserDto.toUser());
     }
 
 //    @SecurityRequirement(name = "bearerAuth")

@@ -1,7 +1,7 @@
 name: Spring User - Tests
 on:
   push:
-    branches: ['develop', 'release-*']
+    branches: ['develop']
 jobs:
   test:
     name: Test - Unit & Integration & SonarCloud Scan
