@@ -28,7 +28,7 @@ public class UserService {
 
     public Optional< String > login(String email) {
         return this.userRepository.findByEmail(email)
-                .map(user -> jwtService.createToken(user.getEmail(), user.getFirstName(), user.getRole().name()));
+                .map(user -> jwtService.createToken(user.getEmail(), user.getFirstName() +" "+ user.getFamilyName(), user.getRole().name()));
     }
 
     public void createUser(User user) {

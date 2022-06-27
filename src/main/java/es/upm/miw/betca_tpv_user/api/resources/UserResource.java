@@ -27,7 +27,7 @@ public class UserResource {
     public static final String USERS = "/users";
     public static final String TOKEN = "/token";
     public static final String EMAIL_ID = "/{email}";
-    public static final String SEARCH = "/search";
+
 
     private final UserService userService;
 
@@ -50,30 +50,6 @@ public class UserResource {
     public void createUser(@Valid @RequestBody UserDto creationUserDto) {
         this.userService.createUser(creationUserDto.toUser());
     }
-
-//    @SecurityRequirement(name = "bearerAuth")
-//    @GetMapping(EMAIL_ID)
-//    public UserDto readUser(@PathVariable String email) {
-//        return new UserDto(this.userService.readByEmailAssured(email));
-//    }
-//
-//    @SecurityRequirement(name = "bearerAuth")
-//    @GetMapping
-//    public Stream< UserDto > readAll() {
-//        return this.userService.readAll(this.extractRoleClaims())
-//                .map(UserDto::ofMobileFirstName);
-//    }
-//
-//    @SecurityRequirement(name = "bearerAuth")
-//    @GetMapping(value = SEARCH)
-//    public Stream< UserDto > findByMobileAndFirstNameAndFamilyNameAndEmailAndDniContainingNullSafe(
-//            @RequestParam(required = false) String mobile, @RequestParam(required = false) String firstName,
-//            @RequestParam(required = false) String familyName, @RequestParam(required = false) String email,
-//            @RequestParam(required = false) String dni) {
-//        return this.userService.findByMobileAndFirstNameAndFamilyNameAndEmailAndDniContainingNullSafe(
-//                mobile, firstName, familyName, email, dni, this.extractRoleClaims()
-//        ).map(UserDto::ofMobileFirstName);
-//    }
 
     private Role extractRoleClaims() {
         List<String> roleClaims = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
