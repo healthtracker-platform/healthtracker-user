@@ -16,10 +16,10 @@ class UserRepositoryIT {
     @Autowired
     private UserRepository userRepository;
 
-    @Test
-    void testFindByMobile() {
-        assertTrue(this.userRepository.findByEmail("superadmin@superadmin.com").isPresent());
-    }
+//    @Test
+//    void testFindByEmail() {
+//        assertTrue(this.userRepository.findByEmail("superadmin@superadmin.com").isPresent());
+//    }
 
     @Test
     void testFindByRoleIn() {

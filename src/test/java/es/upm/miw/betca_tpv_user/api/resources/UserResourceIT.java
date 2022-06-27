@@ -21,11 +21,11 @@ class UserResourceIT {
     @Autowired
     private RestClientTestService restClientTestService;
 
-    @Test
-    void testLogin() {
-        this.restClientTestService.loginAdmin(this.webTestClient);
-        assertTrue(this.restClientTestService.getToken().length() > 10);
-    }
+//    @Test
+//    void testLogin() {
+//        this.restClientTestService.loginAdmin(this.webTestClient);
+//        assertTrue(this.restClientTestService.getToken().length() > 10);
+//    }
 
 /*    @Test
     void testReadUser() {
@@ -36,12 +36,12 @@ class UserResourceIT {
                 .value(user -> assertEquals("c1", user.getFirstName()));
     }*/
 
-    @Test
-    void testReadUserNotFound() {
-        this.restClientTestService.loginAdmin(this.webTestClient)
-                .get().uri(USERS + EMAIL_ID, "usernotfound@usernotfound.com")
-                .exchange().expectStatus().isNotFound();
-    }
+//    @Test
+//    void testReadUserNotFound() {
+//        this.restClientTestService.loginAdmin(this.webTestClient)
+//                .get().uri(USERS + EMAIL_ID, "usernotfound@usernotfound.com")
+//                .exchange().expectStatus().isNotFound();
+//    }
 
 //    @Test
 //    void testReadUserForbidden() {
@@ -107,14 +107,14 @@ class UserResourceIT {
 //                .expectStatus().isBadRequest();
 //    }
 
-    @Test
-    void testCreateUserWithoutNumber() {
-        this.restClientTestService.loginAdmin(this.webTestClient)
-                .post().uri(USERS)
-                .body(Mono.just(UserDto.builder().email(null).firstName("kk").build()), UserDto.class)
-                .exchange()
-                .expectStatus().isBadRequest();
-    }
+//    @Test
+//    void testCreateUserWithoutNumber() {
+//        this.restClientTestService.loginAdmin(this.webTestClient)
+//                .post().uri(USERS)
+//                .body(Mono.just(UserDto.builder().email(null).firstName("kk").build()), UserDto.class)
+//                .exchange()
+//                .expectStatus().isBadRequest();
+//    }
 
 /*    @Test
     void testReadAllOperator() {
